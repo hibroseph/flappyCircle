@@ -1,7 +1,6 @@
 function gameRules() {
-
+  
   this.gameLost = false;
-
   // If the bird falls off the screen, he is dead
   this.isGameLost = function(bird) {
     if(bird.x < 0) {

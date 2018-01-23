@@ -1,5 +1,4 @@
 function Background() {
-
   // A container for the mountains
   var Mountains = [];
   // How fast shall we go?
