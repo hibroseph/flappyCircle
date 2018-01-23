@@ -19,7 +19,7 @@ function Score() {
       fill(255, 42, 42);
     }
 
-    text(this.score, 10, 30 );
+    text(this.score, 380, 30 );
   }
 
 }

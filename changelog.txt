@@ -3,3 +3,4 @@ This shall be my change log to note the changes and when
 1/23/2018
 + As time goes on, Pipes generate more often and also increase in speed.
 + Added a highscore that is stored in the localStorage in the browser
++ Placed score on upper righthand side

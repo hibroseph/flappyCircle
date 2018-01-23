@@ -1,10 +1,7 @@
 /******************************************************
 * Simple game that one must pass between the pipies
-* before getting pushed off the screen.
-* Last update: Pipes gradually increase in speed
-* Future updates: Make a highscore board that remembers,
-* increase the fequency of the pipes instead of just speed
-* Last worked on: 1/23/17
+* before getting pushed off the screen. I call it...
+* flappyCircle (It has nothing to do with flappyBird)
 ******************************************************/
 // Variables
 var bird;
@@ -32,8 +29,6 @@ function setup() {
 
 function draw() {
   background(66, 158, 244);
-
-  //console.log("The current speed is: " + startingSpeed);
 
   // background
   theBackground.show();
