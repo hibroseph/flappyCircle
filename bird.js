@@ -1,6 +1,6 @@
 function Bird() {
   this.y = height / 2;
-  this.x = 40;
+  this.x = 1;
   // Gravity
   this.gravity = .50;
   // Velocity
@@ -8,7 +8,7 @@ function Bird() {
   // Lift of the bird
   this.lift = 15;
   // Speed of bird
-  this.speed = .10;
+  this.speed = .50;
   // Is the game over?
   this.alive = true;
 
@@ -26,11 +26,16 @@ function Bird() {
   this.update = function() {
 
 
-    this.velocity *= 0.95;
+    this.velocity *= .95; // was .95
     this.velocity += this.gravity;
     this.y += this.velocity;
 
+    // If we are displaying pipes, we want
+    // to increase the speed of the bird
+    if (displayPipes == true) {
     this.x += this.speed;
+  }
+
   // Makes sure if the bird reaches the bottom, it stops
     if (this.y > height)  {
       this.y = height;

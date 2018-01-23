@@ -4,6 +4,7 @@ function Menu() {
 
     this.displayMenu = function() {
       textSize(50);
+      textStyle(BOLD);
       textAlign(CENTER);
       fill(0);
       text("Start Game", 200, 200);
@@ -11,16 +12,19 @@ function Menu() {
 
     this.displayGameOver = function() {
       textSize(50);
+      textStyle(BOLD);
       fill(244, 66, 66);
       textAlign(CENTER);
       text("Game Over", 200, 300);
     } // displayGameOver
 
-    this.displayWinner = function() {
+    // Displays the highscore
+    this.displayHighscore = function() {
       textSize(50);
-      fill(66, 244, 98);
+      textStyle(BOLD);
+      fill(255, 255, 102);
       textAlign(CENTER);
-      text("You won!", 200, 400);
+      text("Highscore " + localStorage.getItem("highscore"), 200, 400);
     } //displayWinnter
 
     this.update = function() {

@@ -1,5 +1,5 @@
 
-function Pipe() {
+function Pipe(speed) {
 
   // The empty space
   this.emptySpace = random(70, 200);
@@ -14,7 +14,7 @@ function Pipe() {
   // The width of the pipes
   this.w = 20;
   // The speed of the pipes
-  this.speed = 2
+  this.speed = speed;
   // To highlight it red if you hit it
   this.highlight = false;
   // Has the score been recorded?
@@ -31,10 +31,17 @@ function Pipe() {
     rect(this.x, height-this.bottom, this.w, this.bottom)
   } // end show
 
+  this.newSpeed = function(speed) {
+    this.speed = speed;
+  }
+
+  // Increases speed by the number passed in
+  this.increaseSpeed = function(speed) {
+    this.speed += speed;
+  }
   // This function updates the pipes
   this.update = function() {
     this.x -= this.speed;
-    //this.speed += .10
   } // end update
 
   // Checks if the bird has hit the pipe

@@ -1,21 +1,25 @@
 /******************************************************
 * Simple game that one must pass between the pipies
 * before getting pushed off the screen.
-* Future updates: make the speed of the pipes increase slowly
-* Last worked on: 12/30/17
+* Last update: Pipes gradually increase in speed
+* Future updates: Make a highscore board that remembers,
+* increase the fequency of the pipes instead of just speed
+* Last worked on: 1/23/17
 ******************************************************/
-
 // Variables
 var bird;
 var pipes = [];
 var theBackground;
 var score;
+var highscore = 0;
 var menu;
 var currentScore = 0;
 var game;
+var startingSpeed = 2;
+var pipesPerFrame = 100;
 
 // Whether pipes should be displayed or not
-var displayPipes = true;
+var displayPipes = false;
 
 function setup() {
   createCanvas(400, 600);
@@ -29,12 +33,21 @@ function setup() {
 function draw() {
   background(66, 158, 244);
 
+  //console.log("The current speed is: " + startingSpeed);
 
   // background
   theBackground.show();
 
+  if(frameCount % 100 == 0) {
+    console.log("Increase speed!");
+    startingSpeed += .10;
+  }
+
   // Pipe Stuff
   for (var i = pipes.length - 1; i >= 0; i--) {
+
+    pipes[i].newSpeed(startingSpeed);
+
     pipes[i].show();
     pipes[i].update();
 
@@ -62,9 +75,10 @@ function draw() {
   } // for loop
 
   // Lets add a new pipe every 100 frames
-  if (frameCount % 100 == 0) {
+  if (frameCount % pipesPerFrame == 0) {
     if (displayPipes) {
-      pipes.push(new Pipe());
+      console.log("new pipe!!");
+      pipes.push(new Pipe(startingSpeed));
     } // if statement
   } // if statement
 
@@ -77,42 +91,47 @@ function draw() {
   score.update(currentScore);
   score.show();
 
-  if(game.isGameOver(bird)) {
+  // Set the highscore
+  if(game.isGameLost(bird)) {
+    if(currentScore > highscore) {
+      localStorage.setItem("highscore", currentScore);
+    } // if statement
+
     menu.play = false;
     menu.displayGameOver();
+    menu.displayHighscore();
     menu.gameOver = true;
-  }
+    bird.x = -1;
+    displayPipes = false;
 
-  if(game.isWonGame(bird)) {
+    console.log("The highscore is: " + localStorage.getItem("highscore"));
+  } // if statement
+
+  if(game.isGameWon(bird)) {
     menu.play = false;
-    menu.displayWinner();
+    menu.displayHighscore();
     menu.gameOver = true;
-  }
-
-  if(menu.gameOver) {
-    bird.x = -5;
-  }
+    bird.x = 450;
+  } // if statement
 
   if (!menu.play) {
     menu.displayMenu();
   } // if statement
 
+  if (frameCount % 200 == 0) {
+    pipesPerFrame -= 5;
+  }
+  //console.log("Pipes every: " + pipesPerFrame);
+  //console.log("The speed of the game is: " + startingSpeed)
 } // draw
 
 function mouseClicked() {
   // console.log("X: " + mouseX);
   // console.log("Y: " + mouseY);
-
   // Check if they clicked start game
   if (mouseX > 75 && mouseX < 326 &&
       mouseY > 158 && mouseY < 201 && !menu.play) {
-        console.log("You pressed start game");
-        bird.x = 50;
-        menu.play = true;
-        bird.alive = true;
-        game.gameOver = false;
-        menu.gameOver = false;
-        currentScore = 0;
+        resetGame();
       }
 } // mouseClicked
 
@@ -126,4 +145,17 @@ function keyPressed() {
   if (key == ' ' && bird.alive) {
     bird.up();
   }  // keyPressed
+}
+
+// Resets the variables so we can play another game
+function resetGame() {
+  bird.x = 1;
+  menu.play = true;
+  bird.alive = true;
+  game.gameOver = false;
+  menu.gameOver = false;
+  this.startingSpeed = 2;
+  displayPipes = true;
+  currentScore = 0;
+  pipesPerFrame = 100;
 }
