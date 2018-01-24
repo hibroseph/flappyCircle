@@ -34,7 +34,7 @@ function draw() {
   theBackground.show();
 
   if(frameCount % 100 == 0) {
-    console.log("Increase speed!");
+    //console.log("Increase speed!");
     startingSpeed += .10;
   }
 
@@ -71,6 +71,12 @@ function draw() {
 
   // Lets add a new pipe every 100 frames
   if (frameCount % pipesPerFrame == 0) {
+    console.log("A new pipe should appear");
+  }
+
+  var currentFrame = frameCount % 100;
+  //console.log("currentFrame " + currentFrame);
+  if (frameCount % pipesPerFrame == 0) {
     if (displayPipes) {
       console.log("new pipe!!");
       pipes.push(new Pipe(startingSpeed));
@@ -99,7 +105,7 @@ function draw() {
     bird.x = -1;
     displayPipes = false;
 
-    console.log("The highscore is: " + localStorage.getItem("highscore"));
+    //console.log("The highscore is: " + localStorage.getItem("highscore"));
   } // if statement
 
   if(game.isGameWon(bird)) {
@@ -113,7 +119,12 @@ function draw() {
     menu.displayMenu();
   } // if statement
 
+
+  /*************************************************
+  * Possible bug, frames mighted be minused
+  *************************************************/
   if (frameCount % 200 == 0) {
+    console.log("lets minus 5 frames for a new pipe to appear");
     pipesPerFrame -= 5;
   }
   //console.log("Pipes every: " + pipesPerFrame);
