@@ -4,3 +4,5 @@ Here is a list of known issues that need to be resolved.
   defined parameter to insert new pipes)
 - The highscore system doesn't keep the highscore in the browser
   like it should. It seems to keep the most recent score.
+
+  

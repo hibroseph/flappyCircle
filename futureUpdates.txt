@@ -1,0 +1,5 @@
+### Future Updates ###
+Here are some ideas for future Updates
+
+- Health Bar on the bird and every time it hits a pipe, it hurts itself.
+- Add power ups (Like a health pack, invincibility, etc)
