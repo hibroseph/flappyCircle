@@ -5,7 +5,7 @@ This shall be my change log to note the changes and when
 + Added a highscore that is stored in the localStorage in the browser
 + Placed score on upper righthand side
 
-1/24/2018
+1/25/2018
 + Changed the p5.js library from my local storage to a hosting website.
   Now the game should be playable on the hosting website (which is now is
   www.hibroseph.github.com/flappyCircle)
