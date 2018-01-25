@@ -17,6 +17,7 @@ var pipesPerFrame = 100;
 
 // I am just adding stuff here to see if I can connect This
 // with github
+// idk need I change something else?
 
 // Whether pipes should be displayed or not
 var displayPipes = false;
