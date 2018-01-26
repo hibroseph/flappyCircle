@@ -10,3 +10,7 @@ This shall be my change log to note the changes and when
   Now the game should be playable on the hosting website (which is now is
   www.hibroseph.github.com/flappyCircle)
 + Added a README.md
++ Added a health bar
++ Changed display settings
+  - There is a strong stroke on everything
++ Bird turns red as it is touching a pipe instead of pipe turning red
