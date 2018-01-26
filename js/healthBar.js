@@ -11,7 +11,11 @@ function healthBar() {
   this.show = function() {
     // The actual green health displaying
     noStroke();
-    fill(66,244,89);
+    if (currentHealth > 40) {
+      fill(66,244,89);
+    } else {
+      fill(255,0,0);
+    }
     rect(healthBarLocationX, healthBarLocationY, currentHealth, healtBarHeight)
 
     fill(0);
