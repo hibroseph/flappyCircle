@@ -14,6 +14,9 @@ function healthBar() {
     fill(66,244,89);
     rect(healthBarLocationX, healthBarLocationY, currentHealth, healtBarHeight)
 
+    fill(0);
+    textSize(20);
+    text(bird.getHealth(), healthBarLocationX + 72, healthBarLocationY + 23);
     // Outline of health bar
     strokeWeight(3);
     stroke(0);

@@ -26,8 +26,8 @@ function Bird() {
   }
 
   this.hit = function(bool) {
-    if(bool) {
-    this.health -= 1;
+    if(bool && this.health > 0) {   
+        this.health -= 1;
     }
     this.highlight = bool;
   }
