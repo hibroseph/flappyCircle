@@ -69,6 +69,13 @@ function Bird() {
       this.velocity = 0;
     }
 
+  } // update
+
+  this.reset = function() {
+    this.alive = true;
+    this.health = 100;
+    this.highlight = false;
+    this.x = 1;
   }
 
-}
+} // bird

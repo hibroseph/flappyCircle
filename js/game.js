@@ -160,12 +160,11 @@ function keyPressed() {
 
 // Resets the variables so we can play another game
 function resetGame() {
-  bird.x = 1;
+  bird.reset();
+
   menu.play = true;
-  bird.alive = true;
-  bird.health = 100;
-  game.gameOver = false;
   menu.gameOver = false;
+  game.gameOver = false;
   this.startingSpeed = 2;
   displayPipes = true;
   currentScore = 0;
