@@ -11,13 +11,31 @@ function Bird() {
   this.speed = .50;
   // Is the game over?
   this.alive = true;
+  this.health = 100;
+  this.highlight = false;
 
   // Shows the bird
   this.show = function() {
-    fill(255);
+    if(this.highlight) {
+      fill(244, 66, 66);
+    } else {
+      fill(255);
+    }
+    stroke(2);
     ellipse(this.x, this.y, 32, 32);
   }
 
+  this.hit = function(bool) {
+    if(bool) {
+    this.health -= 1;
+    }
+    this.highlight = bool;
+  }
+
+  // Returns the health
+  this.getHealth = function() {
+    return this.health;
+  }
   this.up = function() {
     this.velocity -= this.lift;
   }
@@ -30,6 +48,9 @@ function Bird() {
     this.velocity += this.gravity;
     this.y += this.velocity;
 
+    if(this.health <= 0) {
+      this.alive = false;
+    }
     // If we are displaying pipes, we want
     // to increase the speed of the bird
     if (displayPipes == true) {

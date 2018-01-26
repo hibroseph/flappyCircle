@@ -14,6 +14,7 @@ var currentScore = 0;
 var game;
 var startingSpeed = 2;
 var pipesPerFrame = 100;
+var healthBar;
 
 // Whether pipes should be displayed or not
 var displayPipes = false;
@@ -25,6 +26,7 @@ function setup() {
   theBackground = new Background();
   menu = new Menu();
   game = new gameRules();
+  healthBar = new healthBar();
 } // setup
 
 function draw() {
@@ -105,7 +107,6 @@ function draw() {
     bird.x = -1;
     displayPipes = false;
 
-    //console.log("The highscore is: " + localStorage.getItem("highscore"));
   } // if statement
 
   if(game.isGameWon(bird)) {
@@ -119,6 +120,10 @@ function draw() {
     menu.displayMenu();
   } // if statement
 
+
+  // Health bar
+  healthBar.update(bird);
+  healthBar.show();
 
   /*************************************************
   * Possible bug, frames mighted be minused
@@ -158,6 +163,7 @@ function resetGame() {
   bird.x = 1;
   menu.play = true;
   bird.alive = true;
+  bird.health = 100;
   game.gameOver = false;
   menu.gameOver = false;
   this.startingSpeed = 2;

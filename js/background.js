@@ -50,6 +50,7 @@ function Mountain() {
 
   // Shows the mountains!
   this.show = function() {
+    strokeWeight(3);
     fill(this.red, this.green, this.blue);
     triangle(this.startXCoord, height,
              (this.endXCoord + this.startXCoord) / 2, this.randHeight, this.endXCoord, height);

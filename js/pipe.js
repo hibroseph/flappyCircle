@@ -15,18 +15,12 @@ function Pipe(speed) {
   this.w = 20;
   // The speed of the pipes
   this.speed = speed;
-  // To highlight it red if you hit it
-  this.highlight = false;
   // Has the score been recorded?
   this.scoreRecorded = false;
 
   // This function worries about showing the pipies
   this.show = function() {
     fill(255);
-    if (this.highlight == true)
-    {
-      fill(244, 66, 66);
-    }
     rect(this.x, 0, this.w, this.top);
     rect(this.x, height-this.bottom, this.w, this.bottom)
   } // end show
@@ -48,12 +42,13 @@ function Pipe(speed) {
   this.hit = function(bird) {
     if(bird.y < this.top || bird.y > height - this.bottom) {
       if(bird.x > this.x && bird.x < this.x + this.w) {
-        this.highlight = true;
+        bird.hit(true);
         return true;
       }
-    }
-    this.highlight = false;
+    } else {
+    bird.hit(false);
     return false;
+    }
   } // end hit
 
   // Checks to see if the pipe is off screen

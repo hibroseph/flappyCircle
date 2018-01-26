@@ -3,6 +3,7 @@ function Menu() {
     this.gameOver = false;
 
     this.displayMenu = function() {
+      strokeWeight(2);
       textSize(50);
       textStyle(BOLD);
       textAlign(CENTER);
