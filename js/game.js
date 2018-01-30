@@ -9,24 +9,25 @@ var pipes = [];
 var theBackground;
 var score;
 var highscore = 0;
-var menu;
 var currentScore = 0;
-var game;
 var startingSpeed = 2;
 var pipesPerFrame = 100;
 var healthBar;
-
+var menuClicked = false;
+var sMenu;
+var birdStartPosition = -17;
 // Whether pipes should be displayed or not
 var displayPipes = false;
+var play = false;
+var gameLost = false;
 
 function setup() {
   createCanvas(400, 600);
   bird = new Bird();
   score = new Score();
   theBackground = new Background();
-  menu = new Menu();
-  game = new gameRules();
   healthBar = new healthBar();
+  sMenu = new startingMenu();
 } // setup
 
 function draw() {
@@ -40,7 +41,7 @@ function draw() {
     startingSpeed += .10;
   }
 
-  // Pipe Stuff
+  // Displaying pipes
   for (var i = pipes.length - 1; i >= 0; i--) {
 
     pipes[i].newSpeed(startingSpeed);
@@ -59,7 +60,7 @@ function draw() {
         //currentScore -= 1;
 
         // If we are playing the game
-        if(menu.play) {
+        if(play) {
           bird.x = pipes[i].x;
         }
       } else if (!pipes[i].hit(bird) && !pipes[i].scoreRecorded &&
@@ -73,14 +74,14 @@ function draw() {
 
   // Lets add a new pipe every 100 frames
   if (frameCount % pipesPerFrame == 0) {
-    console.log("A new pipe should appear");
+    //console.log("A new pipe should appear");
   }
 
   var currentFrame = frameCount % 100;
   //console.log("currentFrame " + currentFrame);
   if (frameCount % pipesPerFrame == 0) {
     if (displayPipes) {
-      console.log("new pipe!!");
+      //console.log("new pipe!!");
       pipes.push(new Pipe(startingSpeed));
     } // if statement
   } // if statement
@@ -95,31 +96,11 @@ function draw() {
   score.show();
 
   // Set the highscore
-  if(game.isGameLost(bird)) {
+  if(gameLost) {
     if(currentScore > highscore) {
       localStorage.setItem("highscore", currentScore);
     } // if statement
-
-    menu.play = false;
-    menu.displayGameOver();
-    menu.displayHighscore();
-    menu.gameOver = true;
-    bird.x = -1;
-    displayPipes = false;
-
   } // if statement
-
-  if(game.isGameWon(bird)) {
-    menu.play = false;
-    menu.displayHighscore();
-    menu.gameOver = true;
-    bird.x = 450;
-  } // if statement
-
-  if (!menu.play) {
-    menu.displayMenu();
-  } // if statement
-
 
   // Health bar
   healthBar.update(bird);
@@ -129,20 +110,35 @@ function draw() {
   * Possible bug, frames mighted be minused
   *************************************************/
   if (frameCount % 200 == 0) {
-    console.log("lets minus 5 frames for a new pipe to appear");
+    //console.log("lets minus 5 frames for a new pipe to appear");
     pipesPerFrame -= 5;
   }
-  //console.log("Pipes every: " + pipesPerFrame);
-  //console.log("The speed of the game is: " + startingSpeed)
+
+  sMenu.update(menuClicked, gameLost);
+  sMenu.display();
+
+  // check if the game is over
+  if (play) {
+    isGameOver();
+  }
+
+  if (gameLost) {
+    gameOver();
+    displayPipes = false;
+    menuClicked = false;
+  }
+
 } // draw
 
 function mouseClicked() {
   // console.log("X: " + mouseX);
   // console.log("Y: " + mouseY);
+
   // Check if they clicked start game
   if (mouseX > 75 && mouseX < 326 &&
-      mouseY > 158 && mouseY < 201 && !menu.play) {
-        resetGame();
+      mouseY > 158 && mouseY < 201 && !play) {
+        menuClicked = true;
+        startGame();
       }
 } // mouseClicked
 
@@ -158,15 +154,28 @@ function keyPressed() {
   }  // keyPressed
 }
 
-// Resets the variables so we can play another game
-function resetGame() {
-  bird.reset();
-
-  menu.play = true;
-  menu.gameOver = false;
-  game.gameOver = false;
-  this.startingSpeed = 2;
+// Let's start the game
+function startGame() {
+  play = true;
   displayPipes = true;
   currentScore = 0;
   pipesPerFrame = 100;
+  gameLost = false;
+  startingSpeed = 2;
+  bird.reset();
+}
+
+// Let's check to see if the game is over
+function isGameOver() {
+  if(bird.x < -17 && play) {
+    bird.alive = false;
+    gameLost = true;
+  }
+}
+
+// What will happen when the game is over
+function gameOver() {
+  bird.x = birdStartPosition;
+  play = false;
+
 }

@@ -1,6 +1,8 @@
+var startPosition = -17;
+
 function Bird() {
   this.y = height / 2;
-  this.x = 1;
+  this.x = startPosition;
   // Gravity
   this.gravity = .50;
   // Velocity
@@ -26,7 +28,7 @@ function Bird() {
   }
 
   this.hit = function(bool) {
-    if(bool && this.health > 0) {   
+    if(bool && this.health > 0) {
         this.health -= 1;
     }
     this.highlight = bool;
@@ -75,7 +77,7 @@ function Bird() {
     this.alive = true;
     this.health = 100;
     this.highlight = false;
-    this.x = 1;
+    this.x = startPosition;
   }
 
 } // bird
